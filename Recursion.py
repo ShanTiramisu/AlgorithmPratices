@@ -16,8 +16,9 @@ def combinationSum(candidates, target):
 
     >>> combinationSum([2], 1)
     >>> []
-    >>> 
+
     '''
+
     pass
 
 
@@ -59,20 +60,54 @@ def Permutations(nums):
     >>> nums = [1]
     >>> [[1]]
     '''
-    if len(nums) == 0:
-        return [[]]
-    
-    result = []
-    perm = Permutations(nums[1:])
-    # [1,2]->[2]->[] ->[[]] ->[[2]] ->[[1,2],[2,1]]
-    for p in perm:
-        for i in range(len(p)+1):
-            p_copy = p.copy()
-            p_copy.insert(i, nums[0])
-            result.append(p_copy)
-    return result
-    
+    n = len(nums)
+    res, sol = [], []
 
+    def backtrack():
+        if len(sol) == n:
+            res.append(sol[:])
+            return
+
+        for ele in nums:
+            print(ele)
+            if ele not in sol:
+                sol.append(ele)
+                backtrack()
+                sol.pop()
+                print("pop")
+    backtrack()
+    print("final")
+    return res
+
+# Leetcode 47: Permutations 2
+def permuteUnique(nums):
+    '''
+    Given a collection of numbers, nums, that might contain duplicates,
+    return all possible unique permutations in any order.
+    >>> permuteUnique([1, 1, 2])
+    >>> [[1,1,2], [1,2,1], [2,1,1]]
+
+    '''
+    res, sol = [], []
+    count = {n:0 for n in nums}
+    for n in nums:
+        count[n] += 1
+    
+    def backtrack():
+        if len(sol) == len(nums):
+            res.append(sol[:])
+            return
+        
+        for n in count:
+            if count[n] > 0:
+                sol.append(n)
+                count[n] -= 1
+                backtrack()
+                count[n] +=1
+                sol.pop()
+
+    backtrack()
+    return res
 
 #Leetcode 78
 def subsets(nums):
@@ -151,9 +186,10 @@ if __name__ == "__main__":
     #print(Permutations([1]))
     #print(Permutations([1,2]))
     #print(Permutations([1,2,3]))
+    print(permuteUnique([1, 1, 2]))
 
     #print(subsets([0,1,3]))
     #print(subsets([0]))
 
-    print(combine(4,2))
+    #print(combine(4,2))
 
