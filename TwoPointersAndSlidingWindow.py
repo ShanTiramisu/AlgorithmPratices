@@ -163,6 +163,7 @@ def miniSubstring(s, t):
     '''
     if not s or not t or len(s) < len(t):
         return ""
+    
     if s == t:
         return s
     
@@ -211,3 +212,4 @@ if __name__ == "__main__":
     print(miniSubstring("ADOBECODEBANC", "ABC"))
     print( miniSubstring("a", "aa"))
     print(miniSubstring("aa", "aa"))
+    print(miniSubstring("ADOBECODEBANCC", "ABCC"))
